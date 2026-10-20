@@ -118,10 +118,10 @@ async function sendToTelegram() {
     statusDiv.innerText = 'Sending to Telegram...';
 
     try {
-        const response = await fetch(`https://telegram.org{BOT_TOKEN}/sendPhoto`, {
-            method: 'POST',
-            body: formData
-        });
+		const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
+			method: 'POST',
+			body: formData
+		});
 
         const result = await response.json();
 
