@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Text Message</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 400px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        textarea {
+            width: 100%;
+            height: 60px;
+            padding: 8px;
+            box-sizing: border-box;
+            background-color: #eee;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: none;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        #status {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Send Text Message</h2>
+    
+    <!-- Phone Number Input -->
+    <div class="form-group">
+        <label for="phoneNumber">Target Phone Number:</label>
+        <input type="text" id="phoneNumber" placeholder="e.g., +1234567890" required>
+    </div>
+
+    <!-- Message Body -->
+    <div class="form-group">
+        <label for="messageText">Message Body:</label>
+        <textarea id="messageText">Hi, my name is Wesley... Check out this photo: https://yourdomain.com/car_photo.jpg</textarea>
+    </div>
+
+    <button type="button" onclick="sendSMS()">Send Text</button>
+
+    <div id="status"></div>
+</div>
+
+<script>
+function sendSMS() {
+    const phone = document.getElementById('phoneNumber').value;
+    const baseText = document.getElementById('messageText').value;
+    const statusDiv = document.getElementById('status');
+
+    if (!phone) {
+        statusDiv.style.color = 'red';
+        statusDiv.innerText = 'Please enter a phone number.';
+        return;
+    }
+
+    const encodedMessage = encodeURIComponent(baseText);
+
+    statusDiv.style.color = 'green';
+    statusDiv.innerText = 'Opening messaging app...';
+
+    // Opens the native device texting app with pre-filled number and text containing the image URL
+    window.location.href = `sms:${phone}?body=${encodedMessage}`;
+}
+</script>
+
+</body>
+</html>
