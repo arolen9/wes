@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Send Text Message:</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+        }
+        .container {
+            width: 100%;
+            height: 100%;
+            max-width: 100%;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 48px; /* 3 times larger than standard 16px */
+        }
+        textarea {
+            width: 100%;
+            height: auto;
+            field-sizing: content; /* Automatically fits the text content */
+            padding: 12px;
+            background-color: #eee;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: none;
+            font-size: 48px; /* 3 times larger than standard 16px */
+            line-height: 1.2;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        #status {
+            margin-top: 10px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Send Text Message</h2>
+    
+    <!-- Phone Number Input -->
+    <div class="form-group">
+        <label for="phoneNumber">Target Phone Number:</label>
+        <input type="text" id="phoneNumber" placeholder="e.g., +1234567890" required>
+    </div>
+
+    <!-- Message Body -->
+    <div class="form-group">
+        <label for="messageText">Message Body:</label>
+        <textarea id="messageText">Hi I'm Wesley, waiting for you on parking lot. Text or call when you're ready. What exit door number you're waiting. I'll pick up you from OUTER lane. Green blinking light at windshield corner - it's me. Black Ford Explorer.</textarea>
+    </div>
+
+    <div>
+        <button type="button" onclick="sendSMS()">Send Text</button>
+        <div id="status"></div>
+    </div>
+</div>
+
+<script>
+function sendSMS() {
+    const phone = document.getElementById('phoneNumber').value;
+    const baseText = document.getElementById('messageText').value;
+    const statusDiv = document.getElementById('status');
+
+    if (!phone) {
+        statusDiv.style.color = 'red';
+        statusDiv.innerText = 'Please enter a phone number.';
+        return;
+    }
+
+    const encodedMessage = encodeURIComponent(baseText);
+
+    statusDiv.style.color = 'green';
+    statusDiv.innerText = 'Opening messaging app...';
+
+    window.location.href = `sms:${phone}?body=${encodedMessage}`;
+}
+</script>
+
+</body>
+</html>
